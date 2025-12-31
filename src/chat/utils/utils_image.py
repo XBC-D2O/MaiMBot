@@ -259,13 +259,13 @@ class ImageManager:
                 if image_base64_processed is None:
                     logger.warning("GIF转换失败，无法获取描述")
                     return "[表情包(GIF处理失败)]"
-                vlm_prompt = "这是一个动态图表情包，每一张图代表了动态图的某一帧，黑色背景代表透明，描述一下表情包表达的情感和内容，描述细节，从互联网梗,meme的角度去分析"
+                vlm_prompt = """这是一个动态图表情包，每一张图代表了动态图的某一帧，黑色背景代表透明，请生成表情包所表达的情感和内容的详细描述，不要输出"好的"、"我们来"、"分析"等解释性文字，输出为一段**平文本**，请注意不要分点。"""
                 detailed_description, _ = await self.vlm.generate_response_for_image(
                     vlm_prompt, image_base64_processed, "jpg", temperature=0.4
                 )
             else:
                 vlm_prompt = (
-                    "这是一个表情包，请详细描述一下表情包所表达的情感和内容，描述细节，从互联网梗,meme的角度去分析"
+                    """这是一个表情包，请生成表情包所表达的情感和内容的详细描述,不要输出"好的"、"我们来"、"分析"等解释性文字，不要输出任何其他内容，输出为一段**平文本**，请注意不要分点。"""
                 )
                 detailed_description, _ = await self.vlm.generate_response_for_image(
                     vlm_prompt, image_base64, image_format, temperature=0.4
