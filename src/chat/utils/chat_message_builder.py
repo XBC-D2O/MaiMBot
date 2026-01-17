@@ -496,16 +496,16 @@ def _build_readable_messages_internal(
 
             if percentile < 0.2:  # 60% 之前的消息 (即最旧的 60%)
                 limit = 50
-                replace_content = "......（记不清了）"
+                replace_content = "......(内容太长被截断)"
             elif percentile < 0.5:  # 60% 之前的消息 (即最旧的 60%)
                 limit = 100
-                replace_content = "......（有点记不清了）"
+                replace_content = "......(内容太长被截断)"
             elif percentile < 0.7:  # 60% 到 80% 之前的消息 (即中间的 20%)
                 limit = 200
-                replace_content = "......（内容太长了）"
+                replace_content = "......(内容太长被截断)"
             elif percentile <= 1.0:  # 80% 到 100% 之前的消息 (即较新的 20%)
                 limit = 400
-                replace_content = "......（内容太长了）"
+                replace_content = "......(内容太长被截断)"
 
             truncated_content = content
             if 0 < limit < original_len:
